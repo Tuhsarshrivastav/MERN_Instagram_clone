@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 
+require("./models/user");
+
 mongoose.connect(process.env.DB_URL, {
     useCreateIndex: true,
     useNewUrlParser: true,
