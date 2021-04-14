@@ -6,9 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const requireLogin = require("../middlewares/requireLogin");
 
-router.get("/protected", requireLogin, (req, res) => {
-  res.send("hello user");
-});
+
 router.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
   if (!name) {
