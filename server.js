@@ -4,6 +4,8 @@ const app = express();
 const mongoose = require("mongoose");
 
 require("./models/user");
+app.use(express.json());
+app.use(require("./routes/auth"));
 
 mongoose.connect(process.env.DB_URL, {
     useCreateIndex: true,
