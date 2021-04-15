@@ -6,6 +6,7 @@ import Home from "./screens/Home";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
 import Profile from "./screens/Profile";
+import CreatePost from "./screens/CreatePost";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <Route path="/login" exact component={Login}></Route>
       <Route path="/register" exact component={Register}></Route>
       <Route path="/profile" exact component={Profile}></Route>
+      <Route path="/create" exact component={CreatePost}></Route>
     </BrowserRouter>
   );
 };
