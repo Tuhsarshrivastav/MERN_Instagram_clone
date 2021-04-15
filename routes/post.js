@@ -1,9 +1,19 @@
-const { Title } = require("@material-ui/icons");
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const Post = require("../models/post");
 const requireLogin = require("../middlewares/requireLogin");
+
+router.get("/allpost", (req, res) => {
+  Post.find()
+    .populate("postedBy", "_id name")
+    .then((posts) => {
+      res.json({ posts });
+    })
+    .catch((err) => {
+      consoe.log(err);
+    });
+});
 
 router.post("/createpost", requireLogin, (req, res) => {
   const { title, body } = req.body;
