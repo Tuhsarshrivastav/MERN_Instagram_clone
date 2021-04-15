@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <nav>
       <div className="nav-wrapper white" style={{ color: "black" }}>
-        <Link to="/" className="brand-logo left">
+        <Link to="/" className="brand-logo left logo">
           Instagram
         </Link>
         <ul id="nav-mobile" className="right">
