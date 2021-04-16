@@ -4,14 +4,16 @@ const mongoose = require("mongoose");
 const Post = require("../models/post");
 const requireLogin = require("../middlewares/requireLogin");
 
-router.get("/allpost", (req, res) => {
+router.get("/allpost", requireLogin, (req, res) => {
   Post.find()
     .populate("postedBy", "_id name")
+    .populate("comments.postedBy", "_id name")
+    .sort("-createdAt")
     .then((posts) => {
       res.json({ posts });
     })
     .catch((err) => {
-      consoe.log(err);
+      console.log(err);
     });
 });
 
@@ -20,7 +22,7 @@ router.post("/createpost", requireLogin, (req, res) => {
   if (!title || !body || !pic) {
     return res.status(422).json({ error: "Plase add all the fields" });
   }
-  // req.user.password = undefined;
+  req.user.password = undefined;
   const post = new Post({
     title,
     body,
@@ -38,15 +40,14 @@ router.post("/createpost", requireLogin, (req, res) => {
 });
 
 router.get("/mypost", requireLogin, (req, res) => {
-  Post.find()
-    .populate("postedBy", "_id name")
-    // .populate("comments.postedBy", "_id name")
-    // .sort("-createdAt")
-    .then((posts) => {
-      res.json({ posts });
+  Post.find({ postedBy: req.user._id })
+    .populate("PostedBy", "_id name")
+    .then((mypost) => {
+      res.json({ mypost });
     })
     .catch((err) => {
       console.log(err);
     });
 });
+
 module.exports = router;

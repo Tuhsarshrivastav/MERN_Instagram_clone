@@ -4,15 +4,14 @@ const app = express();
 const mongoose = require("mongoose");
 
 mongoose.connect(process.env.DB_URL, {
-  useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 mongoose.connection.on("connected", () => {
   console.log("----Mongodb--Connected-----");
 });
-mongoose.connection.on("error", () => {
-  console.log("----Mongodb--Connecting--Error-----");
+mongoose.connection.on("error", (err) => {
+  console.log("----Mongodb--Connecting--Error-----", err);
 });
 
 require("./models/user");
