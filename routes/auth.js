@@ -6,15 +6,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const requireLogin = require("../middlewares/requireLogin");
 
-
 router.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
-  if (!name) {
-    return res.status(422).json({ error: "Please Add Name" });
-  } else if (!email) {
-    return res.status(422).json({ error: "Please Add Email" });
-  } else if (!password) {
-    return res.status(422).json({ error: "Please Add Password" });
+  if (!name || !email || !password) {
+    return res.status(422).json({ error: "Please Add all the fields" });
   }
   User.findOne({ email: email })
     .then((savedUser) => {
@@ -29,6 +24,7 @@ router.post("/signup", (req, res) => {
           email,
           password: hashedpassword,
         });
+
         user
           .save()
           .then((user) => {
