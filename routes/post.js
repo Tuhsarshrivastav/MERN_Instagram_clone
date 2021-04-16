@@ -20,7 +20,7 @@ router.post("/createpost", requireLogin, (req, res) => {
   if (!title || !body || !pic) {
     return res.status(422).json({ error: "Plase add all the fields" });
   }
-  req.user.password = undefined;
+  // req.user.password = undefined;
   const post = new Post({
     title,
     body,
