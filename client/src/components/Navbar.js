@@ -15,16 +15,18 @@ const Navbar = () => {
         <li>
           <Link to="create">Create-Post</Link>
         </li>,
-        <button
-          onClick={() => {
-            localStorage.clear();
-            dispatch({ type: "CLEAR" });
-            history.push("/login");
-          }}
-          className="btn waves-effect waves-light #1976d2 blue darken-2"
-        >
-          Logout
-        </button>,
+        <li>
+          <Link
+            onClick={() => {
+              localStorage.clear();
+              dispatch({ type: "CLEAR" });
+              history.push("/login");
+            }}
+          >
+            Logout
+          </Link>
+        </li>,
+        ,
       ];
     } else {
       return [
