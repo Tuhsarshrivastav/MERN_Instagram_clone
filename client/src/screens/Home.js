@@ -1,6 +1,6 @@
 import React from "react";
-import { useEffect, useContext } from "react";
-import { useState } from "react";
+import { useEffect, useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { UserContext } from "../App";
 
 const Home = () => {
@@ -96,12 +96,49 @@ const Home = () => {
         console.log(err);
       });
   };
+  const deletePost = (postid) => {
+    fetch(`/deletepost/${postid}`, {
+      method: "delete",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        const newData = data.filter((item) => {
+          return item._id !== result._id;
+        });
+        setData(newData);
+      });
+  };
   return (
     <div className="home">
       {data.map((item) => {
         return (
           <div className="card home-card" key={item.id}>
-            <h5 style={{ padding: "10px" }}>{item.postedBy.name}</h5>
+            <h5 style={{ padding: "5px" }}>
+              <Link
+                to={
+                  item.postedBy._id !== state._id
+                    ? "/profile/" + item.postedBy._id
+                    : "/profile"
+                }
+              >
+                {item.postedBy.name}
+              </Link>{" "}
+              {item.postedBy._id == state._id && (
+                <i
+                  className="material-icons"
+                  style={{
+                    float: "right",
+                  }}
+                  onClick={() => deletePost(item._id)}
+                >
+                  delete
+                </i>
+              )}
+            </h5>
             <div className="card-image">
               <img src={item.photo} alt="post" />
             </div>
