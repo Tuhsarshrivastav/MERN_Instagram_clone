@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
-import Profile from "./screens/Profile";
 import CreatePost from "./screens/CreatePost";
 import { reducer, initState } from "./reducers/userReducer";
 
@@ -25,10 +24,9 @@ const Routing = () => {
   return (
     <Switch>
       <Route path="/" exact component={Home}></Route>
-      <Route path="/login" exact component={Login}></Route>
-      <Route path="/register" exact component={Register}></Route>
-      <Route path="/profile" exact component={Profile}></Route>
-      <Route path="/create" exact component={CreatePost}></Route>
+      <Route path="/login" component={Login}></Route>
+      <Route path="/register" component={Register}></Route>
+      <Route path="/create" component={CreatePost}></Route>
     </Switch>
   );
 };
